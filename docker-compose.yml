@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   backend:
     build: ./docker/backend
@@ -11,6 +9,6 @@ services:
     build: ./docker/nginx
     container_name: smuggling-nginx
     ports:
-      - "${NGINX_PORT:-8081}:8080"
+      - "8000:8000"
     depends_on:
       - backend

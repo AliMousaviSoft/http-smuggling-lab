@@ -1,6 +1,12 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
+
+  console.log("=== BACKEND REQUEST START ===");
+  console.log("Method:", req.method);
+  console.log("URL:", req.url);
+  console.log("Headers:", req.headers);
+
   let body = [];
 
   req.on('data', chunk => {
@@ -10,19 +16,16 @@ const server = http.createServer((req, res) => {
   req.on('end', () => {
     body = Buffer.concat(body).toString();
 
-    console.log("=== BACKEND RECEIVED REQUEST ===");
-    console.log(req.method, req.url);
-    console.log("Headers:", req.headers);
-    console.log("Body:", body);
-    console.log("================================");
+    console.log("Body length:", body.length);
+    console.log("Body content:", body);
+    console.log("=== BACKEND REQUEST END ===");
 
+    // ✅ IMPORTANT: send response back
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
-      message: "Hello from backend",
-      method: req.method,
-      url: req.url,
-      headers: req.headers,
-      body: body
+      status: "ok",
+      note: "backend responded",
+      body_length: body.length
     }));
   });
 });
