@@ -7,12 +7,25 @@ This project is designed to evolve progressively from **observability (v0)** to 
 ---
 
 ## 🧠 Current Architecture
-Client (curl / Burp Suite)\
-↓\
-NGINX Reverse Proxy\
-↓\
+
+
+The lab follows a simple reverse proxy architecture:
+
+```text
+
+Client (curl / Burp Suite)
+
+        ↓
+
+NGINX Reverse Proxy
+
+        ↓
+
 Node.js Backend Service
 
+```
+
+This setup allows controlled observation of HTTP request handling across multiple layers.
 
 - Reverse Proxy: NGINX (production-like configuration)
 - Backend: Node.js (`http` module)
