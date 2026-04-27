@@ -1,7 +1,6 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-
   console.log("=== BACKEND REQUEST START ===");
   console.log("Method:", req.method);
   console.log("URL:", req.url);
@@ -20,7 +19,6 @@ const server = http.createServer((req, res) => {
     console.log("Body content:", body);
     console.log("=== BACKEND REQUEST END ===");
 
-    // ✅ IMPORTANT: send response back
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: "ok",
@@ -29,6 +27,17 @@ const server = http.createServer((req, res) => {
     }));
   });
 });
+
+
+server.on('connection', (socket) => {
+  console.log('=== NEW TCP CONNECTION ===');
+
+  socket.on('data', (chunk) => {
+    console.log('--- RAW CHUNK ---');
+    console.log(chunk.toString());
+  });
+});
+
 
 server.listen(3000, () => {
   console.log("Backend running on port 3000");

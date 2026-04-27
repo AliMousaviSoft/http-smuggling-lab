@@ -2,13 +2,29 @@ services:
   backend:
     build: ./docker/backend
     container_name: smuggling-backend
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
 
   nginx:
     build: ./docker/nginx
     container_name: smuggling-nginx
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - backend
+
+  haproxy-1x:
+    build: ./docker/haproxy-1.8
+    container_name: smuggling-haproxy-1x
+    ports:
+      - "6000:6000"
+    depends_on:
+      - nginx
+
+  haproxy-2x:
+    build: ./docker/haproxy-2x
+    container_name: smuggling-haproxy-2x
+    ports:
+      - "6500:6500"
+    depends_on:
+      - nginx
