@@ -288,6 +288,16 @@ curl -v http://localhost:6500/ \
   -H "Transfer-Encoding: chunked" \
   --data-binary $'0\r\n\r\nG'
 ```
+
+#### What V2 Actually Taught You
+
+| Finding | Meaning |
+| --- | --- |
+| HAProxy forwards CL+TE ambiguity | HAProxy is a realistic permissive front layer --- correct model for CDN/LB behavior |
+| NGINX rejects at origin | Modern NGINX accurately models a hardened origin --- the gap exists between HAProxy and NGINX |
+| Different HAProxy response sizes | Version-level behavioral differences are observable and measurable |
+| Keepalive confirmed end-to-end | The smuggling channel mechanism is in place |
+| Backend socket received raw bytes | The TCP layer is transparent --- parsing happens above it |
  
 ---
  
