@@ -28,3 +28,19 @@ services:
       - "6500:6500"
     depends_on:
       - nginx
+
+  ats-8:
+    build: ./docker/ats-8
+    container_name: smuggling-ats-8
+    ports:
+      - "6100:6100"
+    depends_on:
+      - nginx
+
+  ats-9:
+    build: ./docker/ats-9
+    container_name: smuggling-ats-9
+    ports:
+      - "6200:6200"
+    depends_on:
+      - nginx
