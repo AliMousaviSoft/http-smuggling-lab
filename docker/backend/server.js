@@ -12,6 +12,13 @@ const server = http.createServer((req, res) => {
     body.push(chunk);
   });
 
+  req.setTimeout(5000, () => {
+    console.log("=== BACKEND REQUEST TIMEOUT — body never completed ===");
+    console.log("Bytes received so far:", Buffer.concat(body).length);
+    res.writeHead(408, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: "timeout", bytes_received: Buffer.concat(body).length }));
+  });
+
   req.on('end', () => {
     body = Buffer.concat(body).toString();
 
